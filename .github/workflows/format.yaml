@@ -1,0 +1,41 @@
+name: format
+on:
+  push:
+    branches:
+      - "*"
+  pull_request:
+    branches:
+      - "main"
+  workflow_call:
+
+permissions: write-all
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        goversion: [">=1.24"]
+
+    steps:
+      - uses: Kesin11/actions-timeline@427ee2cf860166e404d0d69b4f2b24012bb7af4f # v2.2.3
+
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - uses: aquaproj/aqua-installer@9ebf656952a20c45a5d66606f083ff34f58b8ce0 # v4.0.0
+        with:
+          aqua_version: 'v2.53.1'
+
+      - name: Setup Go
+        uses: actions/setup-go@d35c59abb061a4a6fb18e82ac0862c26744d6ab5 # v5.5.0
+        with:
+          go-version: ${{ matrix.goversion }}
+          cache: true
+          cache-dependency-path: go.sum
+
+      - name: Setup toolchains
+        run: |
+          aqua i
+
+      - name: Format
+        run: golangci-lint fmt --diff

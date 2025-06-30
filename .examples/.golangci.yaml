@@ -1,7 +1,5 @@
 version: "2"
 linters:
-  enable:
-    - govet
   settings:
     custom:
       tagcase:
@@ -20,11 +18,6 @@ linters:
               case: PascalCase
             camel:
               case: camelCase
-            withDelimit:
-              case: snake_case
-              delimit:
-                index: 1
-                delimiter: ,
           initialism:
             enable:
               - BLAH

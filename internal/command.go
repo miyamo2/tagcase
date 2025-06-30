@@ -46,16 +46,15 @@ func RootCommand() *cobra.Command {
 }
 
 func run(cmd *cobra.Command, args []string) error {
-	if versionFlag {
+	switch {
+	case versionFlag:
 		_, _ = fmt.Fprintf(
 			cmd.OutOrStdout(),
 			"tagcase version %q, revision %q\n",
 			Version,
 			Revision,
 		)
-		return nil
-	}
-	if initFlag {
+	case initFlag:
 		_, err := os.ReadFile(".tagcase.yaml")
 		if err == nil {
 			_, _ = fmt.Fprintf(
@@ -86,16 +85,14 @@ func run(cmd *cobra.Command, args []string) error {
 			cmd.OutOrStdout(),
 			"Initialized .tagcase.yaml with default configuration.\n",
 		)
-		return nil
-	}
-
-	config, err := InitConfig()
-	if err != nil {
-		_, _ = fmt.Fprintf(cmd.OutOrStderr(), "failed to load config: %v\n", err)
-	}
-	if diffFlag {
+	case diffFlag:
+		config, err := InitConfig()
+		if err != nil {
+			_, _ = fmt.Fprintf(cmd.OutOrStderr(), "failed to load config: %v\n", err)
+		}
 		if len(args) == 0 {
-			return ErrNoFilesProvided
+			fmt.Fprintf(cmd.OutOrStderr(), "no files provided\n")
+			return nil
 		}
 		dir, file := filePathSplit(args[0])
 		diff, err := Diff(config, dir, file)
@@ -111,19 +108,25 @@ func run(cmd *cobra.Command, args []string) error {
 			)
 			os.Exit(1)
 		}
-	}
-	if writeFlag {
+	case writeFlag:
+		config, err := InitConfig()
+		if err != nil {
+			_, _ = fmt.Fprintf(cmd.OutOrStderr(), "failed to load config: %v\n", err)
+		}
 		if len(args) == 0 {
-			return ErrNoFilesProvided
+			_, _ = fmt.Fprintf(cmd.OutOrStderr(), "no files provided\n")
+			return nil
 		}
 		dir, file := filePathSplit(args[0])
-		err := Format(config, dir, file)
+		err = Format(config, dir, file)
 		if err != nil {
 			_, _ = fmt.Fprintf(cmd.OutOrStderr(), "error formatting file: %v\n", err)
 			os.Exit(1)
 		}
+	default:
+		return cmd.Usage()
 	}
-	return cmd.Usage()
+	return nil
 }
 
 var configFileName = map[string]struct{}{

@@ -1,14 +1,13 @@
 package main
 
 type Foo struct {
-	SnakeAttribute          string `snake:"snakeAttribute"`
-	CamelAttribute          string `camel:"camel-attribute"`
-	PascalAttribute         string `pascal:"pascal_attribute"`
-	KebabAttribute          string `kebab:"KebabAttribute"`
-	ScreamingSnakeAttribute string `screamingSnake:"screamingSnake-Attribute"`
-	ScreamingKebabAttribute string `screamingKebab:"screaming_kebabAttribute"`
+	SnakeAttribute          string `snake:"snake_attribute"`
+	CamelAttribute          string `camel:"camelAttribute"`
+	PascalAttribute         string `pascal:"PascalAttribute"`
+	KebabAttribute          string `kebab:"kebab-attribute"`
+	ScreamingSnakeAttribute string `screamingSnake:"SCREAMING_SNAKE_ATTRIBUTE"`
+	ScreamingKebabAttribute string `screamingKebab:"SCREAMING-KEBAB-ATTRIBUTE"`
 	IgnoreAttribute         string `tagcase:"ignore" snake:"ignoreAttribute"`
-	InitialismAttribute     string `camel:"blah_blah_blah_id"`
-	MultiTagAttribute       string `snake:"multi_tag_attribute" camel:"MultiTagAttribute" pascal:"MultiTagAttribute"`
-	WithDelimitAttribute    string `withDelimit:"omitzero,withDelimitAttribute,omitempty"`
+	InitialismAttribute     string `camel:"somethingID"`
+	MultiTagAttribute       string `snake:"multi_tag_attribute" camel:"multiTagAttribute" pascal:"MultiTagAttribute"`
 }

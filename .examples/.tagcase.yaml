@@ -12,13 +12,6 @@ tags:
     case: PascalCase
   camel:
     case: camelCase
-  withDelimit:
-    case: snake_case
-    delimit:
-      index: 1
-      delimiter: ,
 initialism:
   enable:
-    - BLAH
-  disable:
-    - ID
+    - SOMETHING

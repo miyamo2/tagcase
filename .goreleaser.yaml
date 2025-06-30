@@ -14,7 +14,10 @@ before:
     - go mod tidy
 
 builds:
-  - env:
+  - main: ./cmd/tagcase/main.go
+    id: tagcase
+    binary: tagcase
+    env:
       - CGO_ENABLED=0
     ldflags:
       - -s -w -X main.Version={{.Version}} -X main.Revision={{.ShortCommit}}
@@ -25,12 +28,27 @@ builds:
     goarch:
       - amd64
       - arm64
+  - main: ./cmd/tagcase-analyzer/main.go
+    id: tagcase-analyzer
+    binary: tagcase-analyzer
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - amd64
+      - arm64
 
 archives:
-  - formats: [tar.gz]
+  - id: tagcase
+    ids:
+      - tagcase
+    formats: [tar.gz]
     # this name template makes the OS and Arch compatible with the results of `uname`.
     name_template: >-
-      {{ .ProjectName }}_
+      tagcase_
       {{- title .Os }}_
       {{- if eq .Arch "amd64" }}x86_64
       {{- else if eq .Arch "386" }}i386
@@ -41,11 +59,53 @@ archives:
       - goos: windows
         formats: [zip]
 
-brews:
-  - repository:
+  - id: tagcase-analyzer
+    ids:
+      - tagcase-analyzer
+    formats: [tar.gz]
+    # this name template makes the OS and Arch compatible with the results of `uname`.
+    name_template: >-
+      tagcase-analyzer_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+      {{- if .Arm }}v{{ .Arm }}{{ end }}
+    # use zip for windows archives
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+
+homebrew_casks:
+  - name: tagcase
+    ids:
+      - tagcase
+    binary: tagcase
+    repository:
       owner: miyamo2
       name: homebrew-tap
       token: "{{ .Env.HOMEBREW_TAP_TOKEN }}"
+    hooks:
+      post:
+        install: |
+          if system_command("/usr/bin/xattr", args: ["-h"]).exit_status == 0
+            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/tagcase"]
+          end
+
+  - name: tagcase-analyzer
+    ids:
+      - tagcase-analyzer
+    binary: tagcase-analyzer
+    repository:
+      owner: miyamo2
+      name: homebrew-tap
+      token: "{{ .Env.HOMEBREW_TAP_TOKEN }}"
+    hooks:
+      post:
+        install: |
+          if system_command("/usr/bin/xattr", args: ["-h"]).exit_status == 0
+            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/tagcase-analyzer"]
+          end
 
 changelog:
   use: github-native

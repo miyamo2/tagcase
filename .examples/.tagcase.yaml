@@ -1,0 +1,24 @@
+# yaml-language-server: $schema=../schema.json
+tags:
+  snake:
+    case: snake_case
+  screamingSnake:
+    case: SNAKE_CASE
+  kebab:
+    case: kebab-case
+  screamingKebab:
+    case: KEBAB-CASE
+  pascal:
+    case: PascalCase
+  camel:
+    case: camelCase
+  withDelimit:
+    case: snake_case
+    delimit:
+      index: 1
+      delimiter: ,
+initialism:
+  enable:
+    - BLAH
+  disable:
+    - ID

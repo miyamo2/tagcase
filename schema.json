@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/miyamo2/tagcase",
+  "$ref": "#/$defs/Config",
+  "$defs": {
+    "Config": {
+      "properties": {
+        "tags": {
+            "type": "object",
+            "title": "tags",
+            "description": "tags to be checked",
+            "additionalProperties": {
+              "$ref": "#/$defs/Rule"
+            }
+        },
+        "initialism": {
+          "type": "object",
+          "title": "initialism",
+          "description": "initialism to be checked",
+          "properties": {
+            "enable": {
+              "type": "array",
+              "title": "enable",
+              "description": "additional initialism.",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Z]+$"
+              }
+            },
+            "disable": {
+              "type": "array",
+              "title": "disable",
+              "description": "disable initialism check, e.g. 'true' or 'false'. If true, the initialism will not be checked in the tag case.",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Z]+$"
+              }
+            }
+          }
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "tags"
+      ]
+    },
+    "Rule": {
+      "type": "object",
+      "properties": {
+        "case": {
+          "$ref": "#/$defs/Case"
+        },
+        "delimit": {
+          "$ref": "#/$defs/Delimit"
+        }
+      },
+      "required": [
+        "case"
+      ],
+      "additionalProperties": false
+    },
+    "Case": {
+      "type": "string",
+      "enum": [
+        "snake_case",
+        "SNAKE_CASE",
+        "kebab-case",
+        "KEBAB-CASE",
+        "PascalCase",
+        "camelCase"
+      ],
+      "title": "case",
+      "description": "case of the tag, e.g. 'snake_case', 'SNAKE_CASE', 'kebab-case', 'KEBAB-CASE', 'PascalCase', 'camelCase'"
+    },
+    "Delimit": {
+      "type": "object",
+      "properties": {
+        "delimiter": {
+          "type": "string",
+          "title": "delimiter",
+            "description": "custom delimiter to be used in the tag case, e.g. ','"
+        },
+        "index": {
+          "type": "integer",
+          "title": "index",
+          "description": "index of the name to be checked in the tag."
+        }
+      }
+    }
+  }
+}

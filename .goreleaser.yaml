@@ -76,36 +76,22 @@ archives:
       - goos: windows
         formats: [zip]
 
-homebrew_casks:
+brews:
   - name: tagcase
     ids:
       - tagcase
-    binary: tagcase
     repository:
       owner: miyamo2
       name: homebrew-tap
       token: "{{ .Env.HOMEBREW_TAP_TOKEN }}"
-    hooks:
-      post:
-        install: |
-          if system_command("/usr/bin/xattr", args: ["-h"]).exit_status == 0
-            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/tagcase"]
-          end
 
   - name: tagcase-analyzer
     ids:
       - tagcase-analyzer
-    binary: tagcase-analyzer
     repository:
       owner: miyamo2
       name: homebrew-tap
       token: "{{ .Env.HOMEBREW_TAP_TOKEN }}"
-    hooks:
-      post:
-        install: |
-          if system_command("/usr/bin/xattr", args: ["-h"]).exit_status == 0
-            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/tagcase-analyzer"]
-          end
 
 changelog:
   use: github-native

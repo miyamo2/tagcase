@@ -29,7 +29,7 @@
 
 ## 🎯 What is tagcase?
 
-tagcase makes structure tags naming consistent throughout your Go project. Whether you are working with JSON APIs, databases, configurations, or anything else.
+tagcase makes struct tags naming consistent throughout your Go project. Whether you are working with JSON APIs, databases, configurations, or anything else.
 
 ```yaml
 # yaml-language-server: $schema=https://raw.githubusercontent.com/miyamo2/tagcase/main/schema.json

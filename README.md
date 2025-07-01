@@ -5,8 +5,8 @@
 [![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/miyamo2/tagcase)](https://img.shields.io/github/go-mod/go-version/miyamo2/tagcase)
 [![Release](https://github.com/miyamo2/tagcase/actions/workflows/release.yaml/badge.svg)](https://github.com/miyamo2/tagcase/actions/workflows/release.yaml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/miyamo2/tagcase)](https://goreportcard.com/report/github.com/miyamo2/tagcase)
-[![Version](https://img.shields.io/github/v/release/miyamo2/tagcase?style=flat-square)](https://github.com/miyamo2/tagcase/releases)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+[![Version](https://img.shields.io/github/v/release/miyamo2/tagcase)](https://github.com/miyamo2/tagcase/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/miyamo2/tagcase)
 [![GitMCP](https://img.shields.io/endpoint?url=https://gitmcp.io/badge/miyamo2/tagcase)](https://gitmcp.io/miyamo2/tagcase)
 

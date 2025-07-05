@@ -8,6 +8,6 @@ type Foo struct {
 	ScreamingSnakeAttribute string `screamingSnake:"ScreamingSnakeAttribute"`
 	ScreamingKebabAttribute string `screamingKebab:"ScreamingKebabAttribute"`
 	IgnoreAttribute         string `tagcase:"ignore" snake:"ignoreAttribute"`
-	InitialismAttribute     string `camel:"somethingID"`
-	MultiTagAttribute       string `snake:"multi_tag_attribute" camel:"multiTagAttribute" pascal:"MultiTagAttribute"`
+	InitialismAttribute     string `camel:"something_id"`
+	MultiTagAttribute       string `snake:"multi-tag-attribute" camel:"MultiTagAttribute" pascal:"multiTagAttribute"`
 }

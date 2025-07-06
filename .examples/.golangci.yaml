@@ -20,6 +20,4 @@ linters:
               case: camelCase
           initialism:
             enable:
-              - BLAH
-            disable:
-              - ID
+              - SOMETHING
